@@ -61,7 +61,7 @@ header button:hover {
   font-weight: bold;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   position: relative;
-  right: 430px;
+  right: 35%;
 }
 
 .container button {
@@ -75,7 +75,7 @@ header button:hover {
   cursor: pointer;
   transition: background-color 0.3s ease;
   position: relative;
-  right: 630px;
+  right: 50%;
 }
 
 .container button:hover {
