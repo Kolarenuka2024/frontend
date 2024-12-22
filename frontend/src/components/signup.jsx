@@ -1,14 +1,20 @@
 import "../styles/signup.css"
+import { useNavigate } from "react-router-dom";
 function Signup() {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate("/home");
+  };
   return (
       <div>
-        <header>
+        <header className="signup-header">
           MyWebsite
-          <button>sign up</button>
+          <button onClick={handleNavigation}>sign up</button>
         </header>
         <section className="container" >
           <h1>Start reading you concepts are avaliable here</h1>
-          <button>Get Started</button>
+          <button onClick={handleNavigation}>Get Started</button>
         </section>
       </div>
       )

@@ -3,7 +3,7 @@ import "../styles/home.css";
 function Home() {
   return (
     <div className="home-container">
-      <header>
+      <header className="home-header">
         <div className="logo">My Website Logo</div>
         <div id="select" className="selection-container">
           <select id="branch">
@@ -28,10 +28,8 @@ function Home() {
       <div className="container-home">
         <h1>Welcome to Our Educational Platform</h1>
         <p>Choose the best for your future</p>
-        <div className="button">
           <input type="text" name="query" placeholder="Search here" />
-          <button type="submit">Search</button>
-        </div>
+          <button type="submit" className="button">Search</button>
       </div>
     </div>
   );
