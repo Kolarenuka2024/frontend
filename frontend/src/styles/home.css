@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  height: 200%;
   position: absolute;
   top: 0px;
 }
@@ -60,17 +60,20 @@ input{
   border: 1px solid #ccc;
 }
 
-.button {
+.local button {
   padding: 0px 10px;
   width: 100px;
   height: 40px;
-  border-radius: 0px;
+  border-radius: 10px;
   background-color: black;
   color: white;
   font-family: 'Courier New', Courier, monospace;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  left: 100px;
 }
 
 .button:hover {
@@ -81,4 +84,21 @@ input{
   text-align: center;
   padding: 10%;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.local
+{
+  display:flex;
+  gap:250px;
+}
+.box
+{
+   text-align: center;
+  width: 300px;
+  height: 200px;
+  border-radius: 20px;
+  border: 5px solid black;
+  position: relative;
+left: 10px;
+color: black;
+
 }
