@@ -7,8 +7,8 @@ import Home from './components/home';
 
 function App() {
   return (
-    <Signup/>
-    //<Home/>
+    //<Signup/>
+    <Home/>
   );
 }
 export default App
