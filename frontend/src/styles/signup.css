@@ -28,7 +28,7 @@ html, body {
   padding: 8px 16px;
   margin-right: 50px;
   border: none;
-  background-color: white; 
+  background-color: #ED5E28; 
   color: black;
   border-radius: 5px;
   cursor: pointer;
@@ -36,7 +36,7 @@ html, body {
 }
 
 .signup-header button:hover {
-  background-color: #333; 
+  background-color: gray; 
 }
 
 .container {
@@ -68,7 +68,7 @@ html, body {
 .container button {
   margin: 10px;
   padding: 12px 24px;
-  background-color: black;
+  background-color: #ED5E28;
   color: white;
   font-size: 1rem;
   border: none;
@@ -126,7 +126,8 @@ html, body {
 .signupform {
   display: flex;
   flex-direction: column;
-  gap: 15px; 
+  gap: 5px;
+  margin: 10px;
 }
 
 .signupform label {

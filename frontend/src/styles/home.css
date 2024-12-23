@@ -65,19 +65,18 @@ input{
   width: 100px;
   height: 40px;
   border-radius: 10px;
-  background-color: black;
-  color: white;
-  font-family: 'Courier New', Courier, monospace;
+  background-color: #EB5E28;
+  color: black;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
   position: absolute;
   bottom: 10px;
-  left: 100px;
+  left: 60px;
 }
 
 .button:hover {
-  background-color: blue;
+  background-color: #EB5E28;
 }
 
 .container-home {
@@ -98,7 +97,15 @@ input{
   border-radius: 20px;
   border: 5px solid black;
   position: relative;
-left: 10px;
+  left: 10px;
 color: black;
 
+}
+#branch
+{
+  background-color: #EB5E28;
+}
+#subject
+{
+  background-color: #EB5E28;
 }
