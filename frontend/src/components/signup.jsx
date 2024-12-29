@@ -6,11 +6,6 @@ import Login from "./login";
 function Signup() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const handleNavigation = () => {
-    navigate("/home");
-  };
 
   const toggleSignup = () => {
     setIsSignupOpen(true);
@@ -35,7 +30,7 @@ function Signup() {
       </header>
       <section className="container">
         <h1>Start reading. Your concepts are available here!</h1>
-        <button onClick={handleNavigation}>Get Started</button>
+        <button onClick={toggleSignup}>Get Started</button>
       </section>
       {isSignupOpen && <Signup_pop onClose={closeAllPopups} toggleLogin={toggleLogin} />}
       {isLoginOpen && <Login onClose={closeAllPopups} toggleSignup={toggleSignup} />}

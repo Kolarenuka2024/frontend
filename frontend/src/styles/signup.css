@@ -163,3 +163,9 @@ html, body {
 .signupform button:hover {
   background-color: #444;
 }
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin: 5px 0 0;
+}

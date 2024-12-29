@@ -27,6 +27,10 @@ p {
   height: 80px;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0%;
+  z-index: 1000;
 }
 
 .logo {
@@ -37,7 +41,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px; /* Added space between the select elements */
+  gap: 20px;
 }
 
 select {
