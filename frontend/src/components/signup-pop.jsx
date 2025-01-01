@@ -1,3 +1,4 @@
+import axios from "axios";
 import "../styles/signup.css";
 import { useState } from "react";
 
@@ -37,9 +38,22 @@ function Signup_pop({ onClose, toggleLogin }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (validateForm()) {
       alert("Signup successful for " + name); 
+    }
+    const signup_inputs = {name, email, password, confirmpassword, created_at};
+    try {
+      const response = await axios.post('http://localhost/backend/signup.php',signup_inputs);
+      if(!response.data.success) {
+        setSuccess("signup successful");
+        setErrors(null);
+      } else {
+        setErrors(response.data.error);
+      }
+    } catch (error) {
+      setErrors("An error occurred");
     }
   };
 

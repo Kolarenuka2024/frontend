@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Signup_pop from "./signup-pop";
 import Login from "./login";
+import "../styles/signup.css";
 
 function Signup() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);

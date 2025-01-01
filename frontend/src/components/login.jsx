@@ -1,21 +1,31 @@
 import { useState } from "react";
+import axios from "axios";
 import "../styles/signup.css";
 
 function Login({ onClose, toggleSignup }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (!username || !password) {
-      setError("Please fill in both the username and password.");
-      return;
+  const [success, setSuccess] = useState(null);
+  const handleLogin = async (e) => {
+  e.preventDefault();
+  if (!username || !password) {
+    setError("Please fill in both the username and password.");
+    return;
+  }
+  const inputs = { username, password };
+  try {
+    const response = await axios.post('http://localhost/backend/test1.php', inputs);
+    if (response.data.success) {
+      setSuccess("Login successful");
+      setError(null);
+    } else {
+      setError(response.data.error);
     }
-    console.log("Username:", username);
-    console.log("Password:", password);
-    setError(""); // Clear the error if the input is valid
-  };
+  } catch (error) {
+    setError("An error occurred during login");
+  }
+};
 
   return (
     <div className="popup">
@@ -45,7 +55,7 @@ function Login({ onClose, toggleSignup }) {
               name="username"
               placeholder="Enter your username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)} // Update state
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
             <br />
@@ -56,12 +66,15 @@ function Login({ onClose, toggleSignup }) {
               name="password"
               placeholder="Enter your password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // Update state
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <br />
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <button type="submit">Login</button>
+            {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+            {success && <p style={{ color: "green", marginTop: "10px" }}>{success}</p>}
+            <button type="submit" style={{ marginTop: "10px" }}>
+              Login
+            </button>
           </form>
         </section>
       </div>

@@ -10,7 +10,7 @@
             "port": 33060,
             "driver": "MySQL",
             "name": "mysql",
-            "database": "mysql",
+            "database": "project_db",
             "username": "project",
             "password": "project@123",
             "connectionTimeout": 30
