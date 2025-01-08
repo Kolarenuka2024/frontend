@@ -13,16 +13,18 @@ function Login({ onClose, toggleSignup }) {
     setError("Please fill in both the username and password.");
     return;
   }
-  const inputs = { username, password };
+  const inputs = { action: "login", username, password };
   try {
-    const response = await axios.post('http://localhost/backend/test1.php', inputs);
+    const response = await axios.post('http://localhost/backend/login.php', inputs);
     if (response.data.success) {
       setSuccess("Login successful");
       setError(null);
+      navigate("/home");
     } else {
       setError(response.data.error);
     }
   } catch (error) {
+    console.error(error);
     setError("An error occurred during login");
   }
 };
