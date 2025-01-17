@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import "../styles/signup.css";
+import { useNavigate } from "react-router-dom";
 
 function Login({ onClose, toggleSignup }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
   e.preventDefault();
   if (!username || !password) {
@@ -16,12 +18,16 @@ function Login({ onClose, toggleSignup }) {
   const inputs = { action: "login", username, password };
   try {
     const response = await axios.post('http://localhost/backend/login.php', inputs);
-    if (response.data.success) {
+    if (response.data.status == 1) {
       setSuccess("Login successful");
       setError(null);
       navigate("/home");
-    } else {
-      setError(response.data.error);
+    } else if (response.data.message === "No account found with this username") {
+      alert(response.data.message);
+      toggleSignup();
+      onClose();
+    } else if (response.data.message === "Incorrect password") {
+      alert(response.data.message);
     }
   } catch (error) {
     console.error(error);

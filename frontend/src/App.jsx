@@ -5,6 +5,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Signup from './components/signup';
 import Home from './components/home';
+import Questions from './components/questions';
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Signup />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/questions" element={<Questions />} />
+      
     </Routes>
   </Router>
   );
