@@ -1,26 +1,24 @@
-/* Ensure labels are clearly visible */
 .options-container {
     display: flex;
-    flex-direction: column; /* Stack the labels vertically */
-    gap: 15px; /* Add space between options */
-    align-items: flex-start; /* Align items to the left */
+    flex-direction: column; 
+    gap: 15px; 
+    align-items: flex-start; 
   }
   
   .options-container label {
     font-size: 18px;
     color: #333;
     display: flex;
-    align-items: center; /* Align the radio button and text */
+    align-items: center; 
   }
   
   .options-container input[type="radio"] {
     margin-right: 10px;
-    width: 20px; /* Adjust size for better fit */
-    height: 20px; /* Adjust size for better fit */
-    accent-color: #3498db; /* Custom radio button color */
+    width: 20px; 
+    height: 20px; 
+    accent-color: #3498db; 
   }
   
-  /* Styling for the question card */
   .question_card {
     border: 1px solid #ccc;
     background-color: #f9f9f9;
@@ -28,7 +26,6 @@
     margin-bottom: 10px;
   }
   
-  /* Styling for the body */
   .questions_body {
     background-color: #fafafa;
     padding: 2% 5%;
@@ -36,7 +33,6 @@
     font-family: Arial, sans-serif;
   }
   
-  /* Container for all questions */
   .questions_container {
     max-width: 800px;
     margin: 0 auto;
@@ -46,7 +42,6 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Loading and no questions styles */
   .loading,
   .no-questions {
     font-size: 18px;

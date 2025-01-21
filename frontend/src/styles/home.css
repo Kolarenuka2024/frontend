@@ -37,13 +37,18 @@ p {
   font-size: 24px;
 }
 
-.selection-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
+.selection-container input {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 10px;
 }
 
+.selection-container input:focus {
+  outline: none;
+  border-color: #007bff;
+}
 select {
   padding: 10px;
   font-size: 16px;

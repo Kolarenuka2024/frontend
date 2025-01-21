@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Header from "./header";
 import "../styles/questions.css";
 
 const Questions = () => {
@@ -27,7 +28,7 @@ const Questions = () => {
     const handleOptionChange = (questionId, selectedOption) => {
         setSelectedOptions({
             ...selectedOptions,
-            [questionId]: selectedOption, // Store selected option for the question
+            [questionId]: selectedOption, 
         });
     };
 
@@ -40,6 +41,8 @@ const Questions = () => {
     }
 
     return (
+        <>
+        <Header/>
         <div className="questions_body">
             <div className="questions_container">
                 <h1>All Questions</h1>
@@ -95,6 +98,7 @@ const Questions = () => {
 
             </div>
         </div>
+        </>
     );
 };
 

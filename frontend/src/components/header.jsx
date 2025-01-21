@@ -1,28 +1,33 @@
-import "../styles/home.css"
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import "../styles/home.css";
+
 function Header() {
-    return (
-        <header className="home-header">
-        <div className="logo">My Website Logo</div>
-        <div id="select" className="selection-container">
-          <select id="branch">
-            <option value="">Branch</option>
-            <optgroup label="Branches">
-              <option value="CME">CME</option>
-              <option value="ECE">ECE</option>
-              <option value="EEE">EEE</option>
-              <option value="MECH">MECH</option>
-            </optgroup>
-          </select>
-          <select id="subject">
-            <option value="">Subject</option>
-            <option value="c">C</option>
-            <option value="c++">C++</option>
-            <option value="java">Java</option>
-            <option value="python">Python</option>
-            <option value="sql">SQL</option>
-          </select>
-        </div>
-      </header>
-    )
+  const [search, setSearch] = useState(""); // State for search query
+  const navigate = useNavigate(); // Hook for navigation
+
+  // Handle search when user presses Enter or clicks search
+  const handleSearch = () => {
+    if (search.trim()) {
+      // Navigate to the content page with the search term
+      navigate(`/content?content=${search}`);
+    }
+  };
+
+  return (
+    <header className="home-header">
+      <div className="logo">My Website Logo</div>
+      <div id="search" className="selection-container">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search..."
+        />
+        <button onClick={handleSearch}>Search</button> {/* Add a Search button */}
+      </div>
+    </header>
+  );
 }
+
 export default Header;

@@ -1,0 +1,49 @@
+/* Content Page Styles with Flexbox */
+.content-page {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Vertically center the content */
+    align-items: center; /* Horizontally center the content */
+    margin-top: 80px; /* Adjusted for the header */
+    padding: 20px;
+    background-color: #fff; /* White background for content area */
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow around content */
+    max-width: 900px; /* Maximum width */
+    width: 100%; /* Make the width responsive */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+    text-align: center; /* Center the text */
+    position: relative; /* To allow positioning of the popup */
+    z-index: 1; /* Ensure content stays above the background */
+    padding-right: 350px; /* Make room for the popup */
+}
+
+/* Content Popup Styles */
+.content-popup {
+    color: #333;
+    background-color: #fff;
+    height: 85%; /* Adjust the height of the popup */
+    width: 300px; /* Fixed width for the popup */
+    position: fixed; /* Fix the popup on the side */
+    top: 50%; /* Vertically center the popup */
+    left: 0; /* Align it to the left side of the screen */
+    transform: translateY(-50%); /* Center the popup vertically */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for the popup */
+    padding: 20px; /* Padding inside the popup */
+    border-radius: 8px; /* Rounded corners */
+    z-index: 2; /* Ensure popup appears above content */
+}
+
+/* For mobile responsiveness: */
+@media (max-width: 768px) {
+    .content-popup {
+        width: 100%; /* Make it full-width on smaller screens */
+        height: 60%; /* Adjust height for smaller screens */
+    }
+    .content-page {
+        margin-left: 0; /* Adjust for mobile */
+        margin-right: 0; /* Adjust for mobile */
+        padding-right: 0; /* No space on the right for popup on mobile */
+    }
+}
