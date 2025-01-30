@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import DOMPurify from "dompurify";
-import Header from "./Header";
+import Header from "./header";
 import "../styles/content.css"; 
 
 const ContentPage = () => {
@@ -20,15 +20,17 @@ const ContentPage = () => {
 
     const fetchData = async () => {
       setLoading(true);
-      const endpoint = subject === "java"
-        ? `http://localhost/backend/get_java_content.php?title=${contentParam}`  // For Java content
-        : `http://localhost/backend/get_cprogram_content.php?title=${contentParam}`;  // For C content
-
       try {
+        const endpoint =
+          subject === "java"
+            ? `http://localhost/backend/get_java_content.php?title=${encodeURIComponent(contentParam)}`
+            : `http://localhost/backend/get_cprogram_content.php?title=${encodeURIComponent(contentParam)}`;
+
         const response = await axios.get(endpoint);
         setLoading(false);
-        if (response.data.success) {
-          setContent(response.data.content);
+
+        if (response.data?.success) {
+          setContent(response.data.content || "No content available.");
         } else {
           setContent("Select the topic.");
         }
@@ -46,21 +48,25 @@ const ContentPage = () => {
   useEffect(() => {
     const fetchTitles = async () => {
       setLoading(true);
-      const endpoint = subject === "java"
-        ? `http://localhost/backend/get_java_titles.php`  // For Java titles
-        : `http://localhost/backend/get_cprogram_titles.php`;  // For C titles
-
       try {
+        const endpoint =
+          subject === "java"
+            ? `http://localhost/backend/get_java_titles.php`
+            : `http://localhost/backend/get_cprogram_titles.php`;
+
         const response = await axios.get(endpoint);
         setLoading(false);
-        if (response.data.success) {
-          setTitles(response.data.titles);
+
+        if (response.data?.success) {
+          setTitles(response.data.titles || []);
         } else {
           console.error(response.data.message);
+          setTitles([]);
         }
       } catch (error) {
         console.error("Error fetching titles:", error);
         setLoading(false);
+        setTitles([]);
       }
     };
 
@@ -69,7 +75,7 @@ const ContentPage = () => {
 
   const handleTakeQuiz = () => {
     if (contentParam) {
-      navigate(`/questions?title=${contentParam}&subject=${subject}`);
+      navigate(`/questions?title=${encodeURIComponent(contentParam)}&subject=${subject}`);
     } else {
       alert("Please select a concept before taking the quiz.");
     }
@@ -82,18 +88,21 @@ const ContentPage = () => {
         <div className="sidebar">
           <h3>{subject === "java" ? "Java Concepts" : "C Programming Concepts"}</h3>
           <ul>
-            {titles.map((title) => (
-              <li key={title.id}>
-                <button
-                  onClick={() => {
-                    const newUrl = `?subject=${subject}&content=${title.title}`;
-                    navigate(newUrl, { replace: true });
-                  }}
-                >
-                  {title.title}
-                </button>
-              </li>
-            ))}
+            {titles.length > 0 ? (
+              titles.map((title) => (
+                <li key={title.id || title.title}>
+                  <button
+                    onClick={() => {
+                      navigate(`?subject=${subject}&content=${encodeURIComponent(title.title)}`, { replace: true });
+                    }}
+                  >
+                    {title.title}
+                  </button>
+                </li>
+              ))
+            ) : (
+              <p>No topics available.</p>
+            )}
           </ul>
         </div>
 
