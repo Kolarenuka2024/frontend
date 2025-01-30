@@ -9,8 +9,9 @@ function Header() {
   // Handle search when user presses Enter or clicks search
   const handleSearch = () => {
     if (search.trim()) {
-      // Navigate to the content page with the search term
-      navigate(`/content?content=${search}`);
+      // Assuming subject is either 'java' or 'cprogram'
+      const subject = "cprogram"; 
+      navigate(`/content?content=${search}&subject=${search}`);
     }
   };
 
@@ -24,7 +25,7 @@ function Header() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search..."
         />
-        <button onClick={handleSearch}>Search</button> {/* Add a Search button */}
+        <button onClick={handleSearch} className="search-header">Search</button> {/* Add a Search button */}
       </div>
     </header>
   );

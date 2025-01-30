@@ -1,105 +1,96 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "./header";
-import "../styles/questions.css";
+import "../styles/questions.css"; // Assuming a CSS file for styling
 
 const Questions = () => {
-    const [questions, setQuestions] = useState([]); // Initialize as an array
-    const [loading, setLoading] = useState(true);
-    const [selectedOptions, setSelectedOptions] = useState({}); // To store selected options
+  const [searchParams] = useSearchParams();
+  const title = searchParams.get("title"); // Get the title from query parameters
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [answers, setAnswers] = useState({}); // Track selected answers for each question
+  const navigate = useNavigate(); // Initialize navigate hook
 
-    useEffect(() => {
-        axios
-            .get("http://localhost/backend/questions.php")
-            .then((response) => {
-                if (Array.isArray(response.data)) {
-                    setQuestions(response.data);
-                } else {
-                    console.error("Unexpected response format:", response.data);
-                }
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching questions:", error);
-                setLoading(false);
-            });
-    }, []);
-
-    const handleOptionChange = (questionId, selectedOption) => {
-        setSelectedOptions({
-            ...selectedOptions,
-            [questionId]: selectedOption, 
+  useEffect(() => {
+    if (title) {
+      axios
+        .get(`http://localhost/backend/get_java_questions.php?title=${title}`)
+        .then((response) => {
+          if (response.data.success) {
+            setQuestions(response.data.questions); // Assuming questions are returned in an array
+          } else {
+            console.error(response.data.message);
+          }
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching questions:", error);
+          setLoading(false);
         });
-    };
-
-    if (loading) {
-        return <div className="loading">Loading questions...</div>;
     }
+  }, [title]);
 
-    if (!Array.isArray(questions) || questions.length === 0) {
-        return <div className="no-questions">No questions available!</div>;
-    }
+  const handleAnswerChange = (questionId, option) => {
+    setAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionId]: option,
+    }));
+  };
 
-    return (
-        <>
-        <Header/>
-        <div className="questions_body">
-            <div className="questions_container">
-                <h1>All Questions</h1>
-                {questions.map((question, index) => (
-                    <div key={question.id} className="question_card">
-                        <p className="question_text">
-                            <strong>Question {index + 1}:</strong> {question.question}
-                        </p>
-                        <div className="options-container">
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`question-${question.id}`}
-                                    value="1"
-                                    checked={selectedOptions[question.id] === "1"}
-                                    onChange={() => handleOptionChange(question.id, "1")}
-                                />
-                                {question.option1}
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`question-${question.id}`}
-                                    value="2"
-                                    checked={selectedOptions[question.id] === "2"}
-                                    onChange={() => handleOptionChange(question.id, "2")}
-                                />
-                                {question.option2}
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`question-${question.id}`}
-                                    value="3"
-                                    checked={selectedOptions[question.id] === "3"}
-                                    onChange={() => handleOptionChange(question.id, "3")}
-                                />
-                                {question.option3}
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`question-${question.id}`}
-                                    value="4"
-                                    checked={selectedOptions[question.id] === "4"}
-                                    onChange={() => handleOptionChange(question.id, "4")}
-                                />
-                                {question.option4}
-                            </label>
-                        </div>
-                    </div>
+  const handleSubmit = () => {
+    console.log("Submitted Answers:", answers);
+    alert("Your answers have been submitted!");
+  };
+
+  const handleBack = () => {
+    navigate(-1); // Navigate to the previous page
+  };
+
+  return (
+    <>
+    <button className="back-button" onClick={handleBack}>
+    Back
+  </button>
+    <div className="questions-container">
+      <h2>Quiz: {title}</h2>
+      {loading ? (
+        <p>Loading questions...</p>
+      ) : questions.length > 0 ? (
+        <form onSubmit={(e) => e.preventDefault()}>
+          {questions.map((question, index) => (
+            <div key={question.id} className="question">
+              <p>
+                <strong>Q{index + 1}:</strong> {question.question}
+              </p>
+              <ul>
+                {["A", "B", "C", "D"].map((option) => (
+                  <li key={option}>
+                    <label>
+                      <input
+                        type="radio"
+                        name={`question-${question.id}`}
+                        value={option}
+                        checked={answers[question.id] === option}
+                        onChange={() => handleAnswerChange(question.id, option)}
+                      />
+                      {option}. {question[`option_${option.toLowerCase()}`]}
+                    </label>
+                  </li>
                 ))}
-
+              </ul>
             </div>
-        </div>
-        </>
-    );
+          ))}
+          <button className="submit-button" onClick={handleSubmit}>
+            Submit Quiz
+          </button>
+        </form>
+      ) : (
+        <p>No questions available for this topic.</p>
+      )}
+
+    </div>
+    </>
+  );
 };
 
 export default Questions;

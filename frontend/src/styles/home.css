@@ -118,3 +118,10 @@ color: black;
 {
   background-color: #EB5E28;
 }
+
+.search-header {
+  background-color: black;
+}
+.search-header:hover {
+  background-color: #EB5E28;
+}
