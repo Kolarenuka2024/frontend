@@ -7,7 +7,7 @@ import Signup from './components/signup';
 import Home from './components/home';
 import Questions from './components/questions';
 import ContentPage from './components/content';
-
+import Inter from './components/interview';
 function App() {
   return (
     <Router>
@@ -16,6 +16,7 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/questions" element={<Questions />} />
       <Route path="/content" element={<ContentPage />} />
+      <Route path="/interview" element={<Inter/>} />
     </Routes>
   </Router>
   );

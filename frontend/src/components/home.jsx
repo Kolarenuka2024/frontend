@@ -1,6 +1,20 @@
 import "../styles/home.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "./header";
 function Home() {
+  const [search, setSearch] = useState(""); // State for search query
+  const navigate = useNavigate(); // Hook for navigation
+
+  // Handle search when user presses Enter or clicks search
+  const handleSearch = () => {
+    if (search.trim()) {
+      // Assuming subject is either 'java' or 'cprogram'
+      const subject = "cprogram"; 
+      navigate(`/content?content=${search}&subject=${search}`);
+    }
+  };
+
   return (
     <>
     <div className="home-container">
@@ -8,8 +22,9 @@ function Home() {
       <div className="container-home">
         <h1>Welcome to Our Educational Platform</h1>
         <p>Choose the best for your future</p>
-          <input type="text" name="query" placeholder="Search here" />
-          <button type="submit" className="button">Search</button>
+          <input type="text" name="query" placeholder="Search here" value={search}
+          onChange={(e) => setSearch(e.target.value)} />
+          <button type="submit" onClick={handleSearch} className="button">Search</button>
       </div>
       <div className="local">
         <div className="box">

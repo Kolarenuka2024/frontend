@@ -1,0 +1,32 @@
+.interview-container {
+    width: 120%;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    padding-left: 200px;
+    padding-top: 120%;
+    color: orangered;
+  }
+  
+  .question {
+    margin-bottom: 30px;
+  }
+  
+  input {
+    width: 80%;
+    padding: 5px;
+    margin-top: 5px;
+  }
+  
+  .interview-btn {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .interview-btn:hover {
+    background-color: darkblue;
+  }
+  
