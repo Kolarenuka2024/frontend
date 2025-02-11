@@ -1,29 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
 import "../styles/home.css";
 import "../styles/header.css";
 
 function Header() {
   const [search, setSearch] = useState(""); 
-  const [profileImage, setProfileImage] = useState(null); // For storing the image
+  const [initial, setInitial] = useState(""); 
   const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setInitial(storedUsername.charAt(0).toUpperCase()); 
+    }
+  }, []);
 
   const handleSearch = () => {
     if (search.trim()) {
-      navigate(`/content?content=${search}&subject=${search}`);
+      navigate(`/content?content=${search}&subject=${search}`); 
     }
   };
 
-  // Handle image change and file reader
-  const handleProfileImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result); // Set base64 result
-      };
-      reader.readAsDataURL(file);  // Read as base64 URL
-    }
+  const handleProfileClick = () => {
+    navigate("/profile"); 
   };
 
   return (
@@ -39,24 +38,9 @@ function Header() {
         <button onClick={handleSearch} className="search-header">Search</button> 
       </div>
 
-      {/* Profile Section */}
-      <div className="profile">
-        <label htmlFor="profile-upload" className="profile-container">
-          <input 
-            id="profile-upload" 
-            type="file" 
-            className="profile-input" 
-            onChange={handleProfileImageChange} 
-            style={{ display: "none" }} 
-          />
-          <div className="profile-image-container">
-            {profileImage ? (
-              <img src={profileImage} alt="Profile" className="profile-image" />
-            ) : (
-              <span className="profile-placeholder">+</span> 
-            )}
-          </div>
-        </label>
+      {/* Profile Section - First Letter of Username */}
+      <div className="profile-container" onClick={handleProfileClick}> 
+        <div className="profile-initial">{initial || "?"}</div>
       </div>
     </header>
   );

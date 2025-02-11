@@ -5,12 +5,9 @@ import Header from "./header";
 function Home() {
   const [search, setSearch] = useState(""); // State for search query
   const navigate = useNavigate(); // Hook for navigation
-
-  // Handle search when user presses Enter or clicks search
+  
   const handleSearch = () => {
     if (search.trim()) {
-      // Assuming subject is either 'java' or 'cprogram'
-      const subject = "cprogram"; 
       navigate(`/content?content=${search}&subject=${search}`);
     }
   };

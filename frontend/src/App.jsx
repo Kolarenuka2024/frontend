@@ -8,6 +8,7 @@ import Home from './components/home';
 import Questions from './components/questions';
 import ContentPage from './components/content';
 import Inter from './components/interview';
+import ProfilePage from './components/profile';
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
       <Route path="/questions" element={<Questions />} />
       <Route path="/content" element={<ContentPage />} />
       <Route path="/interview" element={<Inter/>} />
+      <Route path="/profile" element={<ProfilePage/>}/>
     </Routes>
   </Router>
   );

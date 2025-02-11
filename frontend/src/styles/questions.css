@@ -89,3 +89,17 @@ ul li input  :hover {
 .back-button:hover {
   background-color: #e0e0e0;
 }
+
+.question ul li {
+  padding: 8px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.question ul li[style*="background-color: red"] {
+  background-color: #ffcccc !important;
+}
+
+.question ul li[style*="background-color: green"] {
+  background-color: #ccffcc !important;
+}
