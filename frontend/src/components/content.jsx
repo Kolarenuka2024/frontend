@@ -12,9 +12,11 @@ const ContentPage = () => {
   const [content, setContent] = useState("");
   const [titles, setTitles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isEligible, setIsEligible] = useState(false);
 
-  const subject = searchParams.get("subject") || "java"; // Default to Java
+  const subject = searchParams.get("subject") || "java";
   const contentParam = searchParams.get("content");
+  const username = localStorage.getItem("username"); // Using localStorage for persistence
 
   useEffect(() => {
     const fetchTitles = async () => {
@@ -87,6 +89,37 @@ const ContentPage = () => {
     fetchData();
   }, [contentParam, subject]);
 
+  // Check eligibility status
+  useEffect(() => {
+    if (!username) return;
+
+    const checkEligibility = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost/backend/check_eligibility.php?username=${username}&subject=${subject}`
+        );
+
+        if (response.data?.success) {
+          const totalScore = parseInt(response.data.total_score, 10);
+          if (totalScore > 35) {
+            setIsEligible(true);
+            localStorage.setItem(`eligible_${username}_${subject}`, "true"); // Store eligibility
+          } else {
+            setIsEligible(false);
+            localStorage.removeItem(`eligible_${username}_${subject}`);
+          }
+        } else {
+          setIsEligible(false);
+        }
+      } catch (error) {
+        console.error("Error checking eligibility:", error);
+        setIsEligible(false);
+      }
+    };
+
+    checkEligibility();
+  }, [username, subject]);
+
   const handleTakeQuiz = () => {
     if (contentParam) {
       navigate(`/questions?title=${encodeURIComponent(contentParam)}&subject=${subject}`);
@@ -126,12 +159,14 @@ const ContentPage = () => {
             )}
           </ul>
 
-          {/* Interview Button (Navigates to Selected Subject's Interview) */}
+          {/* Interview Button (Only enabled if eligible) */}
           <button 
             className="interview-btn" 
             onClick={() => navigate(`/interview?subject=${subject}`)}
+            disabled={!isEligible} // Disable button if user is not eligible
           >
-            Take {subject === "java" ? "Java" : subject === "cprogram" ? "C Program" : "Python"} Interview
+            {isEligible ? `Take ${subject === "java" ? "Java" : subject === "cprogram" ? "C Program" : "Python"} Interview`
+                        : "Complete all quizzes to unlock"}
           </button>
         </div>
 

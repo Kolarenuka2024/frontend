@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom"; 
 import "../styles/home.css";
 import "../styles/header.css";
 
 function Header() {
   const [search, setSearch] = useState(""); 
-  const [initial, setInitial] = useState(""); 
+  const [userName, setUserName] = useState(null); 
+  const [showDropdown, setShowDropdown] = useState(false); 
   const navigate = useNavigate(); 
+  const hideDropdownTimeout = useRef(null); 
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-      setInitial(storedUsername.charAt(0).toUpperCase()); 
+    console.log("Stored Username:", storedUsername); // Debugging
+
+    if (storedUsername && storedUsername.trim() !== "") {
+      setUserName(storedUsername);
+    } else {
+      setUserName(null);
     }
   }, []);
 
@@ -25,9 +31,30 @@ function Header() {
     navigate("/profile"); 
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("name"); 
+    setUserName(null); 
+    navigate("/");
+  };
+
+  const handleMouseEnter = () => {
+    clearTimeout(hideDropdownTimeout.current); 
+    setShowDropdown(true);
+  };
+
+  const handleMouseLeave = () => {
+    hideDropdownTimeout.current = setTimeout(() => {
+      setShowDropdown(false);
+    }, 1000);
+  };
+
+  const handleHome = () => {
+    navigate("/home");
+  }
+
   return (
     <header className="home-header">
-      <div className="logo">My Website Logo</div>
+      <div className="logo" onClick={handleHome}>Learn Hub</div>
       <div id="search" className="selection-container">
         <input
           type="text"
@@ -38,9 +65,25 @@ function Header() {
         <button onClick={handleSearch} className="search-header">Search</button> 
       </div>
 
-      {/* Profile Section - First Letter of Username */}
-      <div className="profile-container" onClick={handleProfileClick}> 
-        <div className="profile-initial">{initial || "?"}</div>
+      <div
+        className="profile-container"
+        onMouseEnter={handleMouseEnter} 
+        onMouseLeave={handleMouseLeave} 
+      >
+        <div className="profile-icon-1">
+          {userName ? (
+            <span className="profile-initial">{userName?.charAt(0)?.toUpperCase()}</span> 
+          ) : (
+            <span className="profile-initial">?</span>
+          )}
+        </div>
+
+        {showDropdown && (
+          <div className="profile-dropdown">
+            <div className="dropdown-item" onClick={handleProfileClick}>Profile</div>
+            <div className="dropdown-item" onClick={handleLogout}>Log out</div>
+          </div>
+        )}
       </div>
     </header>
   );

@@ -47,7 +47,7 @@ p {
 
 .selection-container input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #4285F4;
 }
 select {
   padding: 10px;

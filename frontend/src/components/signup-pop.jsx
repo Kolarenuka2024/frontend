@@ -117,4 +117,4 @@ function Signup_pop({ onClose, toggleLogin }) {
   );
 }
 
-export default Signup_pop;
+export default Signup_pop;
