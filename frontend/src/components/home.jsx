@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "./header";
 //import image3 from "../assets/image3.png";
 function Home() {
-  const [search, setSearch] = useState(""); // State for search query
-  const navigate = useNavigate(); // Hook for navigation
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate(); 
   
   const handleSearch = () => {
     if (search.trim()) {

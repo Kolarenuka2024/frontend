@@ -28,7 +28,7 @@ function Signup() {
     <div>
       <header className="signup-header">
         MyWebsite
-        <button onClick={toggleSignup}>Sign up</button>
+        <button onClick={toggleSignup}>Register</button>
       </header>
       <section className="container">
         <h1>Start reading. Your concepts are available here!</h1>

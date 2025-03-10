@@ -1,74 +1,114 @@
+/* General Styling */
 .profile-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #eb5e28;
+  width: 100vw; /* Force full width of viewport */
+  max-width: 100%; /* Ensure it doesn't shrink */
+  margin: 0 auto; /* Center it */
+  padding: 20px;
+  margin-top: 280px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-header h1 {
+  color: #333;
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+/* Profile Icon */
+.profile-icon {
+  width: 80px;
+  height: 80px;
+  background: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px auto;
+  text-transform: uppercase;
+  border: 3px solid white;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* User Information */
+.profile-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.profile-info h2 {
+  font-size: 22px;
+  color: #333;
+}
+
+.profile-info p {
+  font-size: 18px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* Scores Section */
+.scores-section {
+  margin-top: 25px;
+}
+
+.scores-section h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Scores Table */
+.scores-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.scores-table th, .scores-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  color: #000000;
+}
+
+.scores-table th {
+  background: #007bff;
+  color: #000000;
+  font-weight: bold;
+}
+
+.scores-table tbody tr:hover {
+  background: #f1f1f1;
+  color: #000000;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .profile-page {
+    width: 90%;
+    padding: 15px;
   }
-  
-  .profile-page .profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-  }
-  
-  .profile-page .profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    font-size: 1rem;
-  }
-  
-  .profile-page .profile-info .name {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .profile-page .profile-info .bio {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .profile-page .profile-stats {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .profile-page .profile-stats .stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 20px;
-  }
-  
-  .profile-page .profile-stats .stat .value {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .profile-page .profile-stats .stat .label {
-    font-size: 18px;
-    color: #666;
-  }
-  
+
   .profile-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background-color: #007bff; 
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin: 10px auto;
-    }
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+  }
+
+  .profile-info p {
+    font-size: 16px;
+  }
+
+  .scores-table th, .scores-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}

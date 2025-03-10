@@ -9,8 +9,11 @@ import Questions from './components/questions';
 import ContentPage from './components/content';
 import Inter from './components/interview';
 import ProfilePage from './components/profile';
+import { ProfileProvider } from "./context/ProfileContext";
 function App() {
   return (
+    <>
+    <ProfileProvider>
     <Router>
     <Routes>
       <Route path="/" element={<Signup />} />
@@ -21,6 +24,8 @@ function App() {
       <Route path="/profile" element={<ProfilePage/>}/>
     </Routes>
   </Router>
+  </ProfileProvider>
+  </>
   );
 }
 export default App

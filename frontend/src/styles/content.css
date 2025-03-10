@@ -87,7 +87,7 @@
 .quiz-button {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #4285F4;
     color: white;
     border: none;
     border-radius: 5px;
@@ -96,12 +96,12 @@
   }
   
   .quiz-button:hover {
-    background-color: #0056b3;
+    background-color: #4285F4;
   }
   .interview-btn {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color:orangered;
+    background-color:#eb5e28;
     color: white;
     border: none;
     border-radius: 5px;

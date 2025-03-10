@@ -9,38 +9,42 @@ function Login({ onClose, toggleSignup }) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
-  e.preventDefault();
-  if (!username || !password) {
-    setError("Please fill in both the username and password.");
-    return;
-  }
-  const inputs = { action: "login", username, password };
-  try {
-    const response = await axios.post('http://localhost/backend/login.php', inputs);
-    if (response.data.status == 1) {
-      setSuccess("Login successful");
-      setError(null);
-      navigate("/home");
-    } else if (response.data.message === "No account found with this username") {
-      alert(response.data.message);
-      toggleSignup();
-      onClose();
-    } else if (response.data.message === "Incorrect password") {
-      alert(response.data.message);
+    e.preventDefault();
+    if (!username || !password) {
+      setError("Please fill in both the username and password.");
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    setError("An error occurred during login");
-  }
-};
+
+    const inputs = { action: "login", username, password };
+    try {
+      const response = await axios.post("http://localhost/backend/login.php", inputs);
+
+      if (response.data.status === 1) {
+        
+        localStorage.setItem("username", username);
+
+        setSuccess("Login successful");
+        setError(null);
+        navigate("/home");
+      } else if (response.data.message === "No account found with this username") {
+        alert(response.data.message);
+        toggleSignup();
+        onClose();
+      } else if (response.data.message === "Incorrect password") {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      setError("An error occurred during login");
+    }
+  };
 
   return (
     <div className="popup">
       <div className="popup-content">
-        <button className="close-button" onClick={onClose}>
-          X
-        </button>
+        <button className="close-button" onClick={onClose}>X</button>
         <h1>Login</h1>
         <h5>
           Don't have an account?{" "}
@@ -80,9 +84,7 @@ function Login({ onClose, toggleSignup }) {
             <br />
             {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
             {success && <p style={{ color: "green", marginTop: "10px" }}>{success}</p>}
-            <button type="submit" style={{ marginTop: "10px" }}>
-              Login
-            </button>
+            <button type="submit" style={{ marginTop: "10px" }}>Login</button>
           </form>
         </section>
       </div>
