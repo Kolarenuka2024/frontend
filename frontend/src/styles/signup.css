@@ -10,12 +10,12 @@ html, body {
 }
 
 .signup-header {
-  background-color: black;
+  background-color:  #0C2D57;
   height: 10%;
   width: 100%;
   position: fixed; 
   top: 0;
-  color: white;
+  color: #EFECEC;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -169,4 +169,11 @@ html, body {
   color: red;
   font-size: 0.8rem;
   margin: 5px 0 0;
+}
+.image_container {
+  width: 500px; 
+  height:200px;
+  position: absolute;
+  top: 10%;
+  left: 60%;
 }

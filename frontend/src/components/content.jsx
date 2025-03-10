@@ -13,7 +13,7 @@ const ContentPage = () => {
   const [titles, setTitles] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const subject = searchParams.get("subject") || "java"; // Default to Java
+  const subject = searchParams.get("subject") || "java"; 
   const contentParam = searchParams.get("content");
 
   useEffect(() => {
@@ -27,6 +27,14 @@ const ContentPage = () => {
           endpoint = "http://localhost/backend/get_cprogram_titles.php";
         } else if (subject === "python") {
           endpoint = "http://localhost/backend/get_python_titles.php";
+        } else if (subject === "cpp") {
+          endpoint = "http://localhost/backend/get_cpp_titles.php";
+        } else if (subject === "sqldb") {
+          endpoint = "http://localhost/backend/get_sqldb_titles.php";
+        } else if (subject === "webdesign") {
+          endpoint = "http://localhost/backend/get_webdesign_titles.php";
+        } else if (subject === "networks") { 
+          endpoint = "http://localhost/backend/get_networks_titles.php";
         }
 
         const response = await axios.get(endpoint);
@@ -52,12 +60,13 @@ const ContentPage = () => {
     if (!contentParam && titles.length > 0) {
       navigate(`?subject=${subject}&content=${encodeURIComponent(titles[0].title)}`, { replace: true });
     }
-  }, [titles, subject]);
+  }, [titles, subject, contentParam, navigate]);
 
   useEffect(() => {
     if (!contentParam) return;
 
     const fetchData = async () => {
+      console.log("Selected content:", contentParam);
       setLoading(true);
       try {
         let endpoint = "";
@@ -67,11 +76,21 @@ const ContentPage = () => {
           endpoint = `http://localhost/backend/get_cprogram_content.php?title=${encodeURIComponent(contentParam)}`;
         } else if (subject === "python") {
           endpoint = `http://localhost/backend/get_python_content.php?title=${encodeURIComponent(contentParam)}`;
+        } else if (subject === "cpp") {
+          endpoint = `http://localhost/backend/get_cpp_content.php?title=${encodeURIComponent(contentParam)}`;
+        } else if (subject === "sqldb") {
+          endpoint = `http://localhost/backend/get_sqldb_content.php?title=${encodeURIComponent(contentParam)}`;
+        } else if (subject === "webdesign") {
+          endpoint = `http://localhost/backend/get_webdesign_content.php?title=${encodeURIComponent(contentParam)}`;
+        } else if (subject === "networks") {  
+          endpoint = `http://localhost/backend/get_networks_content.php?title=${encodeURIComponent(contentParam)}`;
         }
 
         const response = await axios.get(endpoint);
         setLoading(false);
 
+        console.log(response.data);
+        
         if (response.data?.success) {
           setContent(response.data.content || "No content available.");
         } else {
@@ -106,7 +125,17 @@ const ContentPage = () => {
               ? "Java Concepts"
               : subject === "cprogram"
               ? "C Program Concepts"
-              : "Python Concepts"}
+              : subject === "python"
+              ? "Python Concepts"
+              : subject === "webdesign"
+              ? "Web Design Concepts"
+              : subject === "cpp"
+              ? "C++ Concepts"
+              : subject === "sqldb"
+              ? "SQL Database Concepts"
+              : subject === "networks"
+              ? "Computer Network Concepts"
+              : "Java Concepts"}
           </h3>
           <ul>
             {titles.length > 0 ? (
@@ -131,7 +160,14 @@ const ContentPage = () => {
             className="interview-btn" 
             onClick={() => navigate(`/interview?subject=${subject}`)}
           >
-            Take {subject === "java" ? "Java" : subject === "cprogram" ? "C Program" : "Python"} Interview
+            Take {subject === "java" ? "Java" 
+            : subject === "cprogram" ? "C Program" 
+            : subject === "python" ? "Python" 
+            : subject === "cpp" ? "C++"
+            : subject === "webdesign" ? "Web Design"
+            : subject === "sqldb" ? "SQL Database"
+            : subject === "networks" ? "Computer Network"
+            : "Java"} Interview
           </button>
         </div>
 
